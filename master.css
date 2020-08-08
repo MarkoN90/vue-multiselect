@@ -1,0 +1,17 @@
+ul {
+  list-style-type: none;
+  width: 300px !important;
+  padding: 5px !important;
+}
+
+.select-box {
+  margin-bottom:5px;
+  border: 1px solid black;
+  padding: 3px 8px;
+  width: 300px !important;
+
+}
+
+input {
+  padding-right: 12px;
+}
