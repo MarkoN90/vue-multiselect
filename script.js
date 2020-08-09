@@ -1,22 +1,26 @@
 
+window.Event = new Vue();
+
 Vue.component('multi-select', {
-  props: ['options'],
+  props: ['options', 'name'],
   data() {
     return {
       options: this.options,
       selectOrNot: false,
       selectStringDefault: 'Model',
       count: 0,
-      message: 'Hello'
+      message: 'Hello',
+      selected: false,
+      name: this.name
 
     }
   },
   template: `
-    <div>
-       <div class="select-box">{{ selectString }}</div>
+    <div @click="open" >
+       <div class="select-box"><input v-if="selected" type="text"><p v-if="!selected"> {{ selectString }}</p></div>
 
-      <ul style="border: 1px solid gray;">
-      
+      <ul v-if="selected"  style="border: 1px solid gray;">
+
         <li class="border-bottom"><input @click="toggleAll(selectOrNot)" type="checkbox"> Sve</li>
         <li v-for="option in options" @click="toggleOne(option)"><input v-model="option.selected" type="checkbox"> {{ option.marka }}</li>
 
@@ -39,6 +43,12 @@ Vue.component('multi-select', {
        } else {
          this.count--;
        }
+    },
+
+    open() {
+      this.selected-= !this.selected;
+
+       Event.$emit('selectOpened', this.name);
     }
  },
 
@@ -64,5 +74,10 @@ let app = new Vue({
   el: '#root',
   data: {
     message: 'hi'
+  },
+
+  mounted(){
+    Event.$on('selectOpened', function(name) {
+     })
   }
 });
